@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int value = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OllisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             // логика добавления счета и удаления монеты
+            GameEvents.OnScoreChanged?.Invoke(value);
+            Destroy(gameObject);
         }      
     }
 }

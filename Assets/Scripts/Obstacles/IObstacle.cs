@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class IObstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OllisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             // логика проигрыша
+            Debug.Log("Obstacle hit the player!");
+            GameEvents.OnGameOver?.Invoke("You died from an obstacle");
         }      
     }
 }

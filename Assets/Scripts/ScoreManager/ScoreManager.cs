@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Text scoreText;
+    
+    private int currentScore;
+    
+    public int GetScore()
     {
-        
+        return currentScore;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameEvents.OnScoreChanged += HandleScoreChanged;
+    }
+    
+    private void OnDisable()
+    {
+        GameEvents.OnScoreChanged -= HandleScoreChanged;
+    }
+
+    private void HandleScoreChanged(int newScore)
+    {
+        currentScore += newScore;
+        scoreText.text = $"Score: {currentScore}";
     }
 }
